@@ -13,7 +13,8 @@ type result = [
   }
 ]
 
-export default () => {
+const useResult = () => {
+  
   const [results, setResults] = useState<result>();
   const [errorMessage, setErrorMessage] = useState<string>('')
 
@@ -38,3 +39,5 @@ const searchApi = async (serachTerm: string) => {
 
  return [results, searchApi, errorMessage]
 }
+
+export default useResult;

@@ -14,6 +14,8 @@ import SearchBar from "../components/SearchBar";
 import { Props } from "../../type";
 import useResults from "../hooks/useResults";
 
+console.log(useResults);
+
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 type result = [
@@ -44,10 +46,10 @@ const HomeScreen = ({ navigation }: Props) => {
   const [term, setTerm] = useState<string>("");
   const [results, searchApi, errorMessage] = useResults();
   
-    // const filterResultByValue = (value: string) =>
-    //   (results as result).filter((result: any) => result.value === value);
+    const filterResultByValue = (value: string) =>
+      (results as result)?.filter((result: any) => result.value === value);
 
-    // filterResultByValue(term);
+    filterResultByValue(term);
 
   useEffect(() => {
     getCategory().then((data) => {
@@ -67,7 +69,9 @@ const HomeScreen = ({ navigation }: Props) => {
       <SearchBar
       term={term}
       onTermChange={setTerm}
-      onTermSubmit={async () => await searchApi(term)}
+        onTermSubmit={async () => {
+        // await searchApi(term);
+      }}
       />
       <FlatList
         data={categories}
