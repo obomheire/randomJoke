@@ -44,8 +44,6 @@ const CategoryDetailScreen = ({ route, navigation }: Props) => {
     });
   }, [query]);
 
-  // console.log(categoryDetails?.categories[0]);
-
   return (
     <View style={styles.container}>
       <View style={styles.header}>

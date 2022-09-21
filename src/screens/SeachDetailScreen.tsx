@@ -14,12 +14,6 @@ const SearchBarTitle = () => {
 const SeachDetailScreen = ({ route, navigation }: Props) => {
   const query = route?.params?.data;
 
-  // console.log(query);
-
-  // <View style={{ flex: 2 }}>
-  //   <Image style={{flex: 1}} source={{ uri: "https://bukasapics.s3.us-east-2.amazonaws.com/plate1.png" }} />
-  // </View>;
-
   return (
     <View style={styles.container}>
       <SearchBarTitle />
