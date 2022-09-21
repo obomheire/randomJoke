@@ -1,21 +1,64 @@
-import React, { createContext, useState, useContext, ReactNode } from "react";
+import React, {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useReducer,
+} from "react";
+import chuckNorris from "../api/chuckNorris";
+import categoriesReducer, { InitialState } from "../reducers/categoriesReducer";
 
-type Props = {
-    children: ReactNode;
+enum ReducerActionTypes {
+  GET_CATEGORIES = "GET_CATEGORIES",
 }
 
-const GetCategories = createContext({});
+//Action interface
+interface ReducerAction {
+  type: ReducerActionTypes;
+  payload: {
+    categories: string[];
+  };
+}
+
+type Props = {
+  children: ReactNode;
+};
+
+const GetCategoriesContext = createContext({});
 
 const CategoriesContextProvider = ({ children }: Props) => {
-  const [categories, setCategories] = useState([]);
+  const [state, dispatch] = useReducer(categoriesReducer, InitialState);
+
+  const getCategories = async () => {
+    try {
+      const response = await chuckNorris.get("/categories");
+      const data = await response.data;
+      dispatch({ type: ReducerActionTypes.GET_CATEGORIES, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const value = {
+    getCategories
+  };
 
   return (
-    <GetCategories.Provider value={{ categories, setCategories }}>
+    <GetCategoriesContext.Provider value={value}>
       {children}
-    </GetCategories.Provider>
+    </GetCategoriesContext.Provider>
   );
 };
 
 export default CategoriesContextProvider;
 
-export const useCategoriesContext = () => useContext(GetCategories);
+export const useCategoriesContext = () => { 
+
+    const context = useContext(GetCategoriesContext);
+
+      if (context === undefined) {
+    throw new Error(
+      "GetCategoriesContext must be used within GetCategoriesContext"
+    );
+  }
+}
