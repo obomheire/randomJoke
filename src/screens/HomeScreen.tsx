@@ -60,7 +60,7 @@ const HomeScreen = ({ navigation }: Props) => {
     getCategories();
   }, []);
 
-  return (
+  return ( 
     <View
       style={{
         flex: 1,

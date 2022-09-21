@@ -24,8 +24,7 @@ const CategoriesContextProvider = ({ children }: Props) => {
   const getCategories = async () => {
     try {
       const response = await chuckNorris.get("/categories");
-      const res = await response.data;
-      const data = state.categories.concat(res);
+      const data = await response.data;
       dispatch({ type: CategoriesActionKind.GET_CATEGORIES, payload: data });
     } catch (error) {
       console.log(error);
