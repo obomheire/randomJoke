@@ -8,60 +8,51 @@ import React, {
 import chuckNorris from "../api/chuckNorris";
 import categoriesReducer, { InitialState } from "../reducers/categoriesReducer";
 
-enum ReducerActionTypes {
+enum CategoriesActionKind {
   GET_CATEGORIES = "GET_CATEGORIES",
-}
-
-//Action interface
-interface ReducerAction {
-  type: ReducerActionTypes;
-  payload: {
-    categories: string[];
-  };
 }
 
 type Props = {
   children: ReactNode;
 };
 
-const GetCategoriesContext = createContext({});
+const CategoriesContext = createContext(InitialState);
 
 const CategoriesContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(categoriesReducer, InitialState);
 
   const getCategories = async () => {
-      try {
-          const response = await chuckNorris.get("/categories");
-          const data = await response.data;
-          dispatch({ type: ReducerActionTypes.GET_CATEGORIES, payload: data });
-        //   console.log(data)
-          
-      } catch (error) { 
-            console.log(error);
-      }
-
+    try {
+      const response = await chuckNorris.get("/categories");
+      const res = await response.data;
+      const data = state.categories.concat(res);
+      dispatch({ type: CategoriesActionKind.GET_CATEGORIES, payload: data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const value = {
-    getCategories
+    categories: state.categories,
+    getCategories,
   };
 
   return (
-    <GetCategoriesContext.Provider value={value}>
+    <CategoriesContext.Provider value={value}>
       {children}
-    </GetCategoriesContext.Provider>
+    </CategoriesContext.Provider>
   );
 };
 
 export default CategoriesContextProvider;
 
-export const useCategoriesContext = () => {
-  const context = useContext(GetCategoriesContext);
+export const useCategories = () => {
+  const context = useContext(CategoriesContext);
 
   if (context === undefined) {
     throw new Error(
       "GetCategoriesContext must be used within GetCategoriesContext"
     );
   }
-    return context;
+  return context;
 };

@@ -1,37 +1,77 @@
-enum ReducerActionTypes {
+// // An enum with all the types of actions to use in our reducer
+// enum CategoriesActionKind {
+//   GET_CATEGORIES = "GET_CATEGORIES",
+// }
+
+// //Action interface
+// interface CategotiesAction {
+//   type: CategoriesActionKind;
+//   payload: string[];
+// }
+
+// //State interface
+// interface CategoriesState {
+//   categories: string[];
+// }
+
+// export const InitialState = {
+//   categories: [],
+// }
+
+// // Our reducer function that uses a switch statement to handle our actions
+// const CategoriesReducer = ( state: CategoriesState, action: CategotiesAction ) => {
+//   const { type, payload } = action;
+
+//   switch (type) {
+//     case CategoriesActionKind.GET_CATEGORIES:
+//       return {
+//         ...state,
+//         categories: state.categories.concat(payload),
+//       };
+//     default:
+//       return state;
+//   }
+// };  
+
+// export default CategoriesReducer;
+
+// An enum with all the types of actions to use in our reducer
+enum CategoriesActionKind {
   GET_CATEGORIES = "GET_CATEGORIES",
 }
 
 //Action interface
-interface ReducerAction {
-  type: ReducerActionTypes;
-  payload: {
-    categories: string[];
-  };
+interface CategotiesAction {
+  type: CategoriesActionKind;
+  payload: string[];
 }
 
 //State interface
-interface InilState {
+interface CategoriesState {
   categories: string[];
-};
-
-export const InitialState = {
-  categories: [],
+  getCategories: () => void;
 }
 
-const CategoriesReducer = (state: InilState, action: ReducerAction) => {
+export const InitialState: CategoriesState = {
+  categories: [],
+  getCategories: () => {},
+};
 
+// Our reducer function that uses a switch statement to handle our actions
+const CategoriesReducer = ( state: CategoriesState, action: CategotiesAction ) => {
   const { type, payload } = action;
 
   switch (type) {
-    case ReducerActionTypes.GET_CATEGORIES:
+    case CategoriesActionKind.GET_CATEGORIES:
       return {
         ...state,
-        categories: payload.categories,
+        categories:payload,
       };
     default:
       return state;
   }
-};
+};  
 
 export default CategoriesReducer;
+
+

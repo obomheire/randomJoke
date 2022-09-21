@@ -12,7 +12,7 @@ import chuckNorris from "../api/chuckNorris";
 import { colors } from "../global/styles";
 import SearchBar from "../components/SearchBar";
 import { Props } from "../../type";
-import { useCategoriesContext } from "../contexts/CategoriesContext";
+import { useCategories } from "../contexts/CategoriesContext";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -28,23 +28,11 @@ type result = [
   }
 ];
 
-const getCategory = async () => {
-  try {
-    const response = await chuckNorris.get("/categories");
-    return response.data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
 const HomeScreen = ({ navigation }: Props) => {
-  const [categories, setCategories] = React.useState([]);
+
   const [term, setTerm] = useState<string>("");
   const [results, setResults] = React.useState<result>();
-
-  const getCategories = useCategoriesContext();
-  
-  console.log(getCategories);
+  const { categories, getCategories } = useCategories();
 
   const searchApi = async (searchTerm: string) => {
     try {
@@ -69,9 +57,7 @@ const HomeScreen = ({ navigation }: Props) => {
   };
 
   useEffect(() => {
-    getCategory().then((data) => {
-      setCategories(data);
-    });
+    getCategories();
   }, []);
 
   return (
