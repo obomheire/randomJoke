@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import { Text, View, StyleSheet, ScrollView } from "react-native";
-import useResults from "../hooks/useResults";
+import useResults from "../customHooks/useResults";
 // import ResultsList from "../components/ResultsList";
 
 // const SearchScreen = ({ navigation }) => {
