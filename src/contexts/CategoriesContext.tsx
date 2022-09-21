@@ -30,13 +30,16 @@ const CategoriesContextProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(categoriesReducer, InitialState);
 
   const getCategories = async () => {
-    try {
-      const response = await chuckNorris.get("/categories");
-      const data = await response.data;
-      dispatch({ type: ReducerActionTypes.GET_CATEGORIES, payload: data });
-    } catch (error) {
-      console.log(error);
-    }
+      try {
+          const response = await chuckNorris.get("/categories");
+          const data = await response.data;
+          dispatch({ type: ReducerActionTypes.GET_CATEGORIES, payload: data });
+        //   console.log(data)
+          
+      } catch (error) { 
+            console.log(error);
+      }
+
   };
 
   const value = {
@@ -52,13 +55,13 @@ const CategoriesContextProvider = ({ children }: Props) => {
 
 export default CategoriesContextProvider;
 
-export const useCategoriesContext = () => { 
+export const useCategoriesContext = () => {
+  const context = useContext(GetCategoriesContext);
 
-    const context = useContext(GetCategoriesContext);
-
-      if (context === undefined) {
+  if (context === undefined) {
     throw new Error(
       "GetCategoriesContext must be used within GetCategoriesContext"
     );
   }
-}
+    return context;
+};

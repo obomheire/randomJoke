@@ -12,8 +12,7 @@ import chuckNorris from "../api/chuckNorris";
 import { colors } from "../global/styles";
 import SearchBar from "../components/SearchBar";
 import { Props } from "../../type";
-
-// console.log(useResults);
+import { useCategoriesContext } from "../contexts/CategoriesContext";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -42,6 +41,10 @@ const HomeScreen = ({ navigation }: Props) => {
   const [categories, setCategories] = React.useState([]);
   const [term, setTerm] = useState<string>("");
   const [results, setResults] = React.useState<result>();
+
+  const getCategories = useCategoriesContext();
+  
+  console.log(getCategories);
 
   const searchApi = async (searchTerm: string) => {
     try {
