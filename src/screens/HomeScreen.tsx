@@ -12,9 +12,8 @@ import chuckNorris from "../api/chuckNorris";
 import { colors } from "../global/styles";
 import SearchBar from "../components/SearchBar";
 import { Props } from "../../type";
-import useResults from "../hooks/useResults";
 
-console.log(useResults);
+// console.log(useResults);
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
@@ -30,7 +29,6 @@ type result = [
   }
 ];
 
-
 const getCategory = async () => {
   try {
     const response = await chuckNorris.get("/categories");
@@ -41,15 +39,31 @@ const getCategory = async () => {
 };
 
 const HomeScreen = ({ navigation }: Props) => {
-
   const [categories, setCategories] = React.useState([]);
   const [term, setTerm] = useState<string>("");
-  const [results, searchApi, errorMessage] = useResults();
-  
-    const filterResultByValue = (value: string) =>
-      (results as result)?.filter((result: any) => result.value === value);
+  const [results, setResults] = React.useState<result>();
 
-    filterResultByValue(term);
+  const searchApi = async (searchTerm: string) => {
+    try {
+      const response = await chuckNorris.get(`/search?query=${searchTerm}`, {
+        params: {
+          limit: 50,
+          term: searchTerm,
+        },
+      });
+
+      return response.data.result;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const search = async () => {
+    const result = await searchApi(term);
+    setResults(result);
+    const arr = result?.map((result: any) => result.value);
+    navigation.navigate("SeachDetailScreen", { data: arr });
+  };
 
   useEffect(() => {
     getCategory().then((data) => {
@@ -66,13 +80,7 @@ const HomeScreen = ({ navigation }: Props) => {
         backgroundColor: colors.buttons,
       }}
     >
-      <SearchBar
-      term={term}
-      onTermChange={setTerm}
-        onTermSubmit={async () => {
-        // await searchApi(term);
-      }}
-      />
+      <SearchBar term={term} onTermChange={setTerm} onTermSubmit={search} />
       <FlatList
         data={categories}
         keyExtractor={(item) => item}
@@ -96,7 +104,7 @@ const HomeScreen = ({ navigation }: Props) => {
             </View>
           </TouchableWithoutFeedback>
         )}
-        // showsverticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         ListHeaderComponent={<Text style={styles.listHeader}>Categories</Text>}
         horizontal={false}
         numColumns={2}

@@ -18,9 +18,9 @@ const SearchBar = ({ term, onTermChange, onTermSubmit }: searchBarProps) => {
           autoCorrect={false}
           placeholder="serach"
           style={styles.inputStyle}
-          // value={term}
-          // onChangeText={onTermChange}
-          // onEndEditing={onTermSubmit}
+          value={term}
+          onChangeText={onTermChange}
+          onEndEditing={onTermSubmit}
         />
       </View>
     );

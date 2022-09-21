@@ -27,7 +27,7 @@ const searchApi = async (serachTerm: string) => {
           },
         });
         setResults(response.data.result);
-        // console.log(response.data.result.value);
+        // rerurn response.data.result.value);
       }catch(error){
         setErrorMessage('Somthing went wrong')
       }
