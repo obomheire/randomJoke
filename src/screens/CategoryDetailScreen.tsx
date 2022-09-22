@@ -3,26 +3,16 @@ import {
   Text,
   View,
   Dimensions,
-  TouchableOpacity,
   ImageBackground,
 } from "react-native";
 import React, { useEffect } from "react";
 import chuckNorris from "../api/chuckNorris";
 import { Props } from "../../type";
 import { colors } from "../global/styles";
-import { FlatList, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { Category } from "../utils/interface";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-type Category = {
-  categories: string[];
-  created_at: string;
-  icon_url: string;
-  id: string;
-  updated_at: string;
-  url: string;
-  value: string;
-};
 
 const CategoryDetailScreen = ({ route, navigation }: Props) => {
   const [categoryDetails, setcategoryDetails] = React.useState<Category>( );

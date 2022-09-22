@@ -13,23 +13,11 @@ import { colors } from "../global/styles";
 import SearchBar from "../components/SearchBar";
 import { Props } from "../../type";
 import { useCategories } from "../contexts/CategoriesContext";
+import { result } from "../utils/interface";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-type result = [
-  {
-    categories: string[];
-    created_at: string;
-    icon_url: string;
-    id: string;
-    updated_at: string;
-    url: string;
-    value: string;
-  }
-];
-
 const HomeScreen = ({ navigation }: Props) => {
-
   const [term, setTerm] = useState<string>("");
   const [results, setResults] = React.useState<result>();
   const { categories, getCategories } = useCategories();
@@ -51,7 +39,7 @@ const HomeScreen = ({ navigation }: Props) => {
 
   const search = async () => {
     const result = await searchApi(term);
-    setResults(result);
+    setResults(results);
     const arr = result?.map((result: any) => result.value);
     navigation.navigate("SeachDetailScreen", { data: arr });
   };
@@ -60,7 +48,7 @@ const HomeScreen = ({ navigation }: Props) => {
     getCategories();
   }, []);
 
-  return ( 
+  return (
     <View
       style={{
         flex: 1,

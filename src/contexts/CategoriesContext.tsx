@@ -1,23 +1,14 @@
 import React, {
   createContext,
   useContext,
-  ReactNode,
   useReducer,
 } from "react";
 import chuckNorris from "../api/chuckNorris";
 import categoriesReducer, { InitialState } from "../reducers/categoriesReducer";
-
-enum CategoriesActionKind {
-  GET_CATEGORIES = "GET_CATEGORIES",
-}
-
-type Props = {
-  children: ReactNode;
-};
+import { CategoriesActionKind, CategoriesContextProviderProps } from "../utils/interface";
 
 const CategoriesContext = createContext(InitialState);
-
-const CategoriesContextProvider = ({ children }: Props) => {
+const CategoriesContextProvider = ({ children, }: CategoriesContextProviderProps) => {
   const [state, dispatch] = useReducer(categoriesReducer, InitialState);
 
   const getCategories = async () => {

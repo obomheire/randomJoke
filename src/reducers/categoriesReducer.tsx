@@ -1,25 +1,11 @@
-enum CategoriesActionKind {
-  GET_CATEGORIES = "GET_CATEGORIES",
-}
-
-//Action interface
-interface CategotiesAction {
-  type: CategoriesActionKind;
-  payload: string[];
-}
-
-//State interface
-interface CategoriesState {
-  categories: string[];
-  getCategories: () => void;
-}
+import { CategoriesActionKind, CategoriesState, CategotiesAction } from "../utils/interface";
 
 export const InitialState: CategoriesState = {
   categories: [],
   getCategories: () => {},
 };
 
-// Our reducer function that uses a switch statement to handle our actions
+// Reducer function that uses a switch statement to handle our actions
 const CategoriesReducer = ( state: CategoriesState, action: CategotiesAction ) => {
   const { type, payload } = action;
 

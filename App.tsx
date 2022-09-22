@@ -2,7 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import CategoriesContextProvider from "./src/contexts/CategoriesContext";
-import SearchQueryContextProvider from "./src/contexts/SearchContext";
+import SearchQueryContextProvider from "./src/contexts/SearchQueryContext";
 
 import RootNavigator from "./src/navigator/RootNavigator";
 

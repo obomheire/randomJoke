@@ -1,18 +1,11 @@
 import React, { createContext, useContext, ReactNode, useReducer } from "react";
 import chuckNorris from "../api/chuckNorris";
 import queryReducer, { InitialState } from "../reducers/searchQueryReducer";
-
-enum SearchQuaryActionKind {
-  SEARCH_QUERY = "SEARCH_QUERY",
-}
-
-type Props = {
-  children: ReactNode;
-};
+import { SearchQuaryActionKind, SearchQueryContextProviderProps } from "../utils/interface";
 
 const SearchQueryContext = createContext(InitialState);
 
-const SearchQueryContextProvider = ({ children }: Props) => {
+const SearchQueryContextProvider = ({ children, }: SearchQueryContextProviderProps) => {
   const [state, dispatch] = useReducer(queryReducer, InitialState);
 
   const getSearchQuery = async (searchTerm: string) => {
@@ -45,7 +38,7 @@ const SearchQueryContextProvider = ({ children }: Props) => {
 
 export default SearchQueryContextProvider;
 
-export const useQuery = () => {
+export const useSearchQuery = () => {
   const context = useContext(SearchQueryContext);
 
   if (context === undefined) {

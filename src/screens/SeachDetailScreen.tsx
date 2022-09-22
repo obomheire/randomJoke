@@ -1,30 +1,33 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Props } from "../../type";
 import { colors } from "../global/styles";
+import { SearchBarTitleProps } from "../utils/interface";
 
-const SearchBarTitle = () => {
+const SearchBarTitle = ({ data }: SearchBarTitleProps) => {
   return (
     <View style={styles.backgroundStyle}>
-      <Text style={styles.textStyle}>Search Results</Text>
+      <Text style={styles.textStyle}>
+        {data === undefined || data.length === 0 ? "No Result Found" : "Search Result"}
+      </Text>
     </View>
   );
 };
 
-const SeachDetailScreen = ({ route, navigation }: Props) => {
+const SeachDetailScreen = ({ route }: Props) => {
   const query = route?.params?.data;
 
   return (
     <View style={styles.container}>
-      <SearchBarTitle />
+      <SearchBarTitle data={query} />
       <FlatList
         data={query}
         keyExtractor={(item) => item}
         renderItem={({ item }) =>
           item ? (
-              <View style={{ margin: 5 }}>
-                <Text style={{ color: "#fff", fontSize: 20 }}>{item}</Text>
-              </View>
+            <View style={{ margin: 5 }}>
+              <Text style={{ color: "#fff", fontSize: 20 }}>{item}</Text>
+            </View>
           ) : null
         }
         showsVerticalScrollIndicator={false}

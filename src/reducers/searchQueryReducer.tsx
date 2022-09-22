@@ -1,38 +1,4 @@
-enum SearchQuaryActionKind {
-  SEARCH_QUERY = "SEARCH_QUERY",
-}
-
-//Action interface
-interface SearchQueryAction {
-  type: SearchQuaryActionKind;
-  payload: [
-    {
-      categories: string[];
-      created_at: string;
-      icon_url: string;
-      id: string;
-      updated_at: string;
-      url: string;
-      value: string;
-    }
-  ];
-}
-
-//State interface
-interface SearchQueryState {
-  searchQuery: [
-    {
-      categories: string[];
-      created_at: string;
-      icon_url: string;
-      id: string;
-      updated_at: string;
-      url: string;
-      value: string;
-    }
-  ];
-  getSearchQuery: (searchTerm: string) => void;
-}
+import { SearchQuaryActionKind, SearchQueryAction, SearchQueryState } from "../utils/interface";
 
 export const InitialState: SearchQueryState = {
   searchQuery: [
@@ -49,7 +15,7 @@ export const InitialState: SearchQueryState = {
   getSearchQuery: () => {},
 };
 
-// Our reducer function that uses a switch statement to handle our actions
+// Reducer function that uses a switch statement to handle our actions
 const SearchQueryReducer = ( state: SearchQueryState, action: SearchQueryAction ) => {
   const { type, payload } = action;
 
