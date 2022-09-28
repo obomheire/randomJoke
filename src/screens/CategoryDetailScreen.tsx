@@ -15,7 +15,8 @@ const SCREEN_WIDTH = Dimensions.get("window").width;
 
 
 const CategoryDetailScreen = ({ route, navigation }: Props) => {
-  const [categoryDetails, setcategoryDetails] = React.useState<Category>( );
+  const [categoryDetails, setcategoryDetails] = React.useState<Category>();
+  // console.log(route?.params?.category);
 
   const query: string = route?.params?.category;
 
