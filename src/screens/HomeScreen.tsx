@@ -11,12 +11,12 @@ import React, { useEffect, useState } from "react";
 import chuckNorris from "../api/chuckNorris";
 import { colors } from "../global/styles";
 import SearchBar from "../components/SearchBar";
-import { Props } from "../../type";
+import { RootStackScreenProps } from "../../type";
 import { useCategories } from "../contexts/CategoriesContext";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
-const HomeScreen = ({ navigation }: Props) => {
+const HomeScreen = ({ navigation }: RootStackScreenProps<"HomeScreen">) => {
   const [term, setTerm] = useState<string>("");
   const { categories, getCategories } = useCategories();
 
