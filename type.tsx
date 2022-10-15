@@ -1,4 +1,9 @@
-import type { NativeStackScreenProps } from "@react-navigation/native-stack";
+import type {
+  NativeStackScreenProps,
+  NativeStackNavigationProp,
+} from "@react-navigation/native-stack"; //
+import { RouteProp } from "@react-navigation/native";
+// import { StackNavigationProp } from "@react-navigation/stack"; // This is used for StackNavigator}
 
 declare global {
   namespace ReactNavigation {
@@ -12,8 +17,14 @@ export type RootStackParamList = {
   SeachDetailScreen: { data: string[] };
 };
 
-export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
+export type StackScreenProps<T extends keyof RootStackParamList> = {
+  navigation: NativeStackNavigationProp<RootStackParamList, T>;
+  route: RouteProp<RootStackParamList, T>;
+};
+
+export type RootStackScreenProps<Screen extends keyof RootStackParamList> = 
   NativeStackScreenProps<RootStackParamList, Screen>;
 
-export type Props = NativeStackScreenProps<RootStackParamList>;
+  //NB: either StackScreenProps or RootStackScreenProps can be use. Both are the same
+
 

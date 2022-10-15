@@ -7,18 +7,21 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import chuckNorris from "../api/chuckNorris";
-import { Props } from "../../type";
+import { RootStackScreenProps, StackScreenProps } from "../../type";
 import { colors } from "../global/styles";
 import { Category } from "../utils/interface";
 
 const SCREEN_WIDTH = Dimensions.get("window").width;
 
 
-const CategoryDetailScreen = ({ route, navigation }: Props) => {
+const CategoryDetailScreen = ({
+  route,
+  navigation,
+}: RootStackScreenProps<"CategoryDetailScreen">) => {
   const [categoryDetails, setcategoryDetails] = React.useState<Category>();
   // console.log(route?.params?.category);
 
-  const query: string = route?.params?.category;
+  const query = route.params.category;
 
   const getCategoryDetails = async () => {
     try {
@@ -40,16 +43,22 @@ const CategoryDetailScreen = ({ route, navigation }: Props) => {
       <View style={styles.header}>
         <Text style={styles.headerText}>{categoryDetails?.categories[0]}</Text>
       </View>
-        <View style={{ height: 150}}>
-          <ImageBackground
-            style={{ height: 270 }}
-            source={{
-              uri: "https://media.gettyimages.com/photos/chuck-norris-poses-with-two-uzis-his-sleeveless-denim-shirt-to-his-picture-id525603356",
-            }}
-            imageStyle={styles.imageStyle}
-          />
+      <View style={{ height: 150 }}>
+        <ImageBackground
+          style={{ height: 270 }}
+          source={{
+            uri: "https://media.gettyimages.com/photos/chuck-norris-poses-with-two-uzis-his-sleeveless-denim-shirt-to-his-picture-id525603356",
+          }}
+          imageStyle={styles.imageStyle}
+        />
       </View>
-      <View style={{marginTop: 120, justifyContent: "center", alignItems: "center"}}>
+      <View
+        style={{
+          marginTop: 120,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <View>
           <Text style={styles.text}>Created Date: </Text>
           <Text style={styles.text}>{categoryDetails?.created_at}</Text>
@@ -58,7 +67,7 @@ const CategoryDetailScreen = ({ route, navigation }: Props) => {
           <Text style={styles.text}>Created Updated: </Text>
           <Text style={styles.text}>{categoryDetails?.updated_at}</Text>
         </View>
-        <View >
+        <View>
           <Text style={styles.text}>URL: </Text>
           <Text style={styles.text}>{categoryDetails?.url}</Text>
         </View>

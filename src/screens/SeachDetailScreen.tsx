@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { Props } from "../../type";
+import { RootStackScreenProps, StackScreenProps } from "../../type";
 import { colors } from "../global/styles";
 import { SearchBarTitleProps } from "../utils/interface";
 
@@ -14,8 +14,10 @@ const SearchBarTitle = ({ data }: SearchBarTitleProps) => {
   );
 };
 
-const SeachDetailScreen = ({ route }: Props) => {
-  const query = route?.params?.data;
+const SeachDetailScreen = ({
+  route,
+}: RootStackScreenProps<"SeachDetailScreen">) => {
+  const query = route.params.data;
 
   return (
     <View style={styles.container}>
