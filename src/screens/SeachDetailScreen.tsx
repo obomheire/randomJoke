@@ -1,6 +1,6 @@
 import { FlatList, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { RootStackScreenProps, StackScreenProps } from "../../type";
+import { RootStackScreenProps } from "../../type";
 import { colors } from "../global/styles";
 import { SearchBarTitleProps } from "../utils/interface";
 

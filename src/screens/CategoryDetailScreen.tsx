@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import chuckNorris from "../api/chuckNorris";
-import { RootStackScreenProps, StackScreenProps } from "../../type";
+import { RootStackScreenProps } from "../../type";
 import { colors } from "../global/styles";
 import { Category } from "../utils/interface";
 

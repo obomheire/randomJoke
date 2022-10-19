@@ -17,14 +17,13 @@ export type RootStackParamList = {
   SeachDetailScreen: { data: string[] };
 };
 
-export type StackScreenProps<T extends keyof RootStackParamList> = {
-  navigation: NativeStackNavigationProp<RootStackParamList, T>;
-  route: RouteProp<RootStackParamList, T>;
-};
+// export type RootStackScreenProps<T extends keyof RootStackParamList> = {
+//   navigation: NativeStackNavigationProp<RootStackParamList, T>;
+//   route: RouteProp<RootStackParamList, T>;
+// }; OR as follows
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> = 
   NativeStackScreenProps<RootStackParamList, Screen>;
 
-  //NB: either StackScreenProps or RootStackScreenProps can be use. Both are the same
 
 
